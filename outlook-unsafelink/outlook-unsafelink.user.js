@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         outlook-unsafelink
 // @namespace    https://cksum.co.uk
-// @version      0.1.1
+// @version      0.1.2
 // @description  Remove outlook safelink junk from message body
 // @author       Sam Lee, sam@cksum.co.uk
 // @homepageURL  https://github.com/samlee/userscripts/tree/main/outlook-unsafelink
@@ -26,10 +26,18 @@ const removeSafeLink = (link) => {
   }
 };
 
-document.addEventListener('DOMNodeInserted', (event) => {
-	if (!event || !event.target || !(event.target instanceof HTMLElement)) return;
-  if (event.target instanceof HTMLAnchorElement) removeSafeLink(event.target);
-  Array.from(event.target.getElementsByTagName('a')).forEach(removeSafeLink);
-}, false);
+const observer = new MutationObserver((mutationsList) => {
+  for (const mutation of mutationsList) {
+    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType !== Node.ELEMENT_NODE) continue;
+  	    if (node instanceof HTMLAnchorElement) removeSafeLink(node);
+	      node.querySelectorAll('a').forEach(removeSafeLink);
+      }
+    }
+  }
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
 
 Array.from(document.getElementsByTagName('a')).forEach(removeSafeLink);
