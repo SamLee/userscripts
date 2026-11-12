@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         outlook-unsafelink
 // @namespace    https://cksum.co.uk
-// @version      0.1.3
+// @version      0.1.4
 // @description  Remove outlook safelink junk from message body
 // @author       Sam Lee, sam@cksum.co.uk
 // @homepageURL  https://github.com/samlee/userscripts/tree/main/outlook-unsafelink
 // @downloadURL  https://github.com/samlee/userscripts/raw/main/outlook-unsafelink/outlook-unsafelink.user.js
 // @updateURL    https://github.com/samlee/userscripts/raw/main/outlook-unsafelink/outlook-unsafelink.user.js
 // @match        https://outlook.office.com/*
-// @match        https://outlook.could.microsoft/*
+// @match        https://outlook.cloud.microsoft/*
 // @grant        none
 // ==/UserScript==
 
